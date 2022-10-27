@@ -1,7 +1,11 @@
-import java.util.*;
-import java.security.*;
-import java.math.*;
+//import java.util.*;
+//import java.security.*;
+//import java.math.*;
 //import javax.xml.bind.DatatypeConverter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class MD5Hash {
     /*
     public void givenPassword_whenHashing_thenVerifying()
@@ -30,4 +34,18 @@ public class MD5Hash {
     while(hashtext.length() < 32 ){
         hashtext = "0"+hashtext;
     */
+    public String encryptString (String input) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] messageDigest = md.digest(input.getBytes());
+        BigInteger bigInt = new BigInteger(1, messageDigest);
+        return bigInt.toString(16);
+    }
+
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+         MD5Hash encryptor = new MD5Hash();
+
+         String password = "monkey123";
+
+         System.out.println(encryptor.encryptString(password));
+    }
 }
